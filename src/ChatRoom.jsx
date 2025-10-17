@@ -1,7 +1,8 @@
 // src/ChatRoom.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { database } from "./firebase.js";
-import { ref, push, onValue } from "firebase/database";
+import { ref, push, onValue ,remove } from "firebase/database";
+
 
 function ChatRoom({ username }) {
   const [messages, setMessages] = useState([]);
@@ -32,6 +33,17 @@ function ChatRoom({ username }) {
     });
     setNewMessage("");
   };
+  const clearChat = () => {
+  const messagesRef = ref(database, "messages");
+  remove(messagesRef)
+    .then(() => {
+      setMessages([]); // Clear local messages
+    })
+    .catch((error) => {
+      console.error("Error clearing chat:", error);
+    });
+};
+
 
   return (
     <div className="container mt-3">
@@ -51,6 +63,11 @@ function ChatRoom({ username }) {
         onKeyPress={(e) => e.key === "Enter" && sendMessage()}
       />
       <button className="btn btn-primary" onClick={sendMessage}>Send</button>
+      <div className="d-flex mt-2">
+  <button className="btn btn-primary me-2" onClick={sendMessage}>Send</button>
+  <button className="btn btn-danger" onClick={clearChat}>Clear Chat</button>
+</div>
+
     </div>
   );
 }
