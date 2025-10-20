@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { database } from "./firebase.js";
-import { ref, push, onValue, } from "firebase/database";//remove
+import { ref, push, onValue, remove} from "firebase/database";
 function ChatRoom({ username }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -32,8 +32,8 @@ function ChatRoom({ username }) {
   };
 
   const clearChat = () => {
-  //  const messagesRef = ref(database, "messages");
-   // remove(messagesRef).then(() => setMessages([]));
+  const messagesRef = ref(database, "messages");
+  remove(messagesRef).then(() => setMessages([]));
   setMessages([]); // Clear only local messages
 
   };
