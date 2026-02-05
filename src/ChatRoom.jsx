@@ -45,7 +45,7 @@ function ChatRoom({ username }) {
 
   return (
     <div className="container mt-3">
-      <h3 className="text-center mb-3">ChatRoom😊 App</h3>
+      <h3 className="text-center mb-3">Chat Room😊</h3>
 
       <div className="border p-3 mb-3" style={{ height: "400px", overflowY: "scroll" }}>
         {messages.map((msg) => (
